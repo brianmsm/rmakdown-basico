@@ -60,7 +60,7 @@ xaringanExtra::use_extra_styles(
 )
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r echo = FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
