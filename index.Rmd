@@ -450,6 +450,22 @@ viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdow
 ]
 
 ---
+class: inverse, center, middle
+
+# Personalización
+
+---
+
+# YAML - Intermedio
+.font105[.line-space1-5[
+En el encabezado YAML también se pueden configurar la visualización del documento de acuerdo al output solicitado.
+
+Por ej. modificar el tema y la forma de resaltado del código:
+]]
+
+```{r echo = FALSE, out.width = '50%'}
+knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje.html")
+```
 
 
 ---
