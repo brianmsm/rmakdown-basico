@@ -11,7 +11,7 @@
     <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b68d0690438e405fb70d168b16ea56c0","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"a8695428e79b46648ffa5f4aff464b0c","expires":1}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -516,13 +516,46 @@ output:
 
 ---
 
----
-
 # YAML - Intermedio
 .font105[.line-space2-0[
 Adicionalmente, se puede incluir una tabla de contenidos, mediante la especificación de `toc: yes`, enumerarlo mediante `number_sections: yes`, indicar la profundidad de la enumeración `toc_depth: 3` (defecto) y mostrar un botón para ocultar/mostrar el código mediante `code_folding: show`.
 
 ]]
+
+
+---
+.font105[.line-space1-5[Ejemplo de modificación YAML para contenido]]
+
+.panelset[
+.panel[.panel-name[YAML]
+##### Modificación
+```yaml
+---
+title: "Reporte para aprendizaje"
+subtitle: "Capacitación"
+author: 
+  - name: Brian N. Peña-Calero
+    email: brianmsm@gmail.com
+    affiliation: Laboratorio de Innovación en Salud
+date: "27/11/2020"
+output: 
+  html_document: 
+    highlight: kate
+    theme: readable
+    toc: yes
+    number_sections: yes
+    toc_depth: 3
+    code_folding: show
+---
+```
+]
+
+.panel[.panel-name[R Markdown]
+.center[
+&lt;iframe src="https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje.html" width="100%" height="400px"&gt;&lt;/iframe&gt;
+]
+]
+]
 
 ---
 class: middle

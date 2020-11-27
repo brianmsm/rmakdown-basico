@@ -10,13 +10,17 @@ output:
   html_document: 
     highlight: kate
     theme: readable
+    toc: yes
+    number_sections: yes
+    toc_depth: 3
+    code_folding: show
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
@@ -35,3 +39,5 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Segundo título

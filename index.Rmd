@@ -498,13 +498,48 @@ knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_a
 
 ---
 
----
-
 # YAML - Intermedio
 .font105[.line-space2-0[
 Adicionalmente, se puede incluir una tabla de contenidos, mediante la especificación de `toc: yes`, enumerarlo mediante `number_sections: yes`, indicar la profundidad de la enumeración `toc_depth: 3` (defecto) y mostrar un botón para ocultar/mostrar el código mediante `code_folding: show`.
 
 ]]
+
+
+---
+.font105[.line-space1-5[Ejemplo de modificación YAML para contenido]]
+
+.panelset[
+.panel[.panel-name[YAML]
+##### Modificación
+```yaml
+---
+title: "Reporte para aprendizaje"
+subtitle: "Capacitación"
+author: 
+  - name: Brian N. Peña-Calero
+    email: brianmsm@gmail.com
+    affiliation: Laboratorio de Innovación en Salud
+date: "27/11/2020"
+output: 
+  html_document: 
+    highlight: kate
+    theme: readable
+    toc: yes
+    number_sections: yes
+    toc_depth: 3
+    code_folding: show
+---
+```
+]
+
+.panel[.panel-name[R Markdown]
+.center[
+```{r echo = FALSE, out.width = '100%'}
+knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje.html")
+```
+]
+]
+]
 
 ---
 class: middle
