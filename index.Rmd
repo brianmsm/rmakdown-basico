@@ -396,7 +396,7 @@ as_tibble(mtcars) %>%
 #### 1. Código CSS
 
 ```
-![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
+![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png){width=30%}
 ```
 
 #### 1. Código HTML
@@ -432,34 +432,19 @@ knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rma
 
 .panelset[
 .panel[.panel-name[Código R]
-#### 1. Código CSS
+#### Código HTML
 
 ```
-![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
-```
-
-#### 1. Código HTML
-
-```
-<img src="https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png" width="300px"/>
-```
-
-#### 1. Código R
-
-```{r, echo=FALSE, comment=""}
-cat(c("```{r, echo=FALSE, , out.width = '30%'}",
-      "knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png', 
-      dpi = 600) ",
-      "```"), 
-    sep='\n')
+<embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf" 
+width="1100" height="500">
 ```
 ]
 
-.panel[.panel-name[Imagen]
+.panel[.panel-name[PDF]
 .center[
-```{r out.height = "460px", out.width='800px', echo=FALSE}
-knitr::include_graphics("http://www.de.ufpb.br/~ulisses/disciplinas/normality_tests_comparison.pdf")
-```
+<embed src="https://drive.google.com/viewerng/
+viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf" width="1100" height="500">
 ]
 ]
 ]
