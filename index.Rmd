@@ -460,10 +460,14 @@ class: inverse, center, middle
 .font105[.line-space1-5[
 En el encabezado YAML también se pueden configurar la visualización del documento de acuerdo al output solicitado.
 
-Por ej. modificar el tema y la forma de resaltado del código:
+Se puede modificar el tema especificando `theme` dentro de `html_document` a cualquiera de los siguientes valores: `default`, `cerulean`, `journal`, `flatly`, `darkly`, `readable`, `spacelab`, `united`, `cosmo`, `lumen`, `paper`, `sandstone`, `simplex`, `yeti`.
+
+Así mismo, se puede modificar `highlight` dentro de `html_document` a cualquiera de los siguientes valores: `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, `textmate`.
 ]]
 
-```{r echo = FALSE, out.width = '50%'}
+---
+
+```{r echo = FALSE, out.width = '150%'}
 knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje.html")
 ```
 

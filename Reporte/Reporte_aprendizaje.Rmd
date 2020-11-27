@@ -6,8 +6,10 @@ author:
     email: brianmsm@gmail.com
     affiliation: Laboratorio de Innovación en Salud
 date: "27/11/2020"
-lang: es
-output: html_document
+output: 
+  html_document: 
+    highlight: new
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
