@@ -428,7 +428,7 @@ knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rma
 ---
 # Cuerpo: Insertar PDF
 
-.font105[Para insertar **imágenes**, existen 2 formas de hacerlo:]
+.font105[La forma más efectiva de insertar pdf es mediante *html* y haciendo uso del lectro de `google drive`. El único problema es que para ver los cambios es necesario hacer un deploy.]
 
 .panelset[
 .panel[.panel-name[Código R]
@@ -437,14 +437,14 @@ knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rma
 ```
 <embed src="https://drive.google.com/viewerng/
 viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf" 
-width="1100" height="500">
+width="1000" height="350">
 ```
 ]
 
 .panel[.panel-name[PDF]
 .center[
 <embed src="https://drive.google.com/viewerng/
-viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf" width="1100" height="500">
+viewer?embedded=true&url=https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf" width="1000" height="350">
 ]
 ]
 ]
