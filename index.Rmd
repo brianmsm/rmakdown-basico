@@ -76,14 +76,13 @@ library(tidyverse)
   1. Encabezado YAML - Básico
   1. Cuerpo
   
-    - Formato: *cursiva*, **negrita**, ***cursiva-negrita***
-    - Insertar imágenes, [hipervínculos](https://es.wikipedia.org/wiki/Hiperenlace), `código`
+    - Formato: *cursiva*, **negrita**, ***cursiva-negrita***, `código`, [hipervínculos](https://es.wikipedia.org/wiki/Hiperenlace)
     - Configurar un `chunk`
+    - Insertar imágenes, pdf  
   
 1.  Personalización
 
   1. YAML - Intermedio (theme, highlight, css)
-  1. Formato de tablas
 ]
 
 .pull-right[
@@ -470,7 +469,7 @@ Así mismo, se puede modificar `highlight` dentro de `html_document` a cualquier
 
 .panelset[
 .panel[.panel-name[YAML]
-
+##### Modificación
 ```yaml
 ---
 title: "Reporte para aprendizaje"
@@ -497,34 +496,15 @@ knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_a
 ]
 ]
 
-
-
+---
 
 ---
 
-# HTML Widgets
+# YAML - Intermedio
+.font105[.line-space2-0[
+Adicionalmente, se puede incluir una tabla de contenidos, mediante la especificación de `toc: yes`, enumerarlo mediante `number_sections: yes`, indicar la profundidad de la enumeración `toc_depth: 3` (defecto) y mostrar un botón para ocultar/mostrar el código mediante `code_folding: show`.
 
-I have not thoroughly tested HTML widgets against **xaringan**. Some may work well, and some may not. It is a little tricky.
-
-Similarly, the Shiny mode (`runtime: shiny`) does not work. I might get these issues fixed in the future, but these are not of high priority to me. I never turn my presentation into a Shiny app. When I need to demonstrate more complicated examples, I just launch them separately. It is convenient to share slides with other people when they are plain HTML/JS applications.
-
-See the next page for two HTML widgets.
-
----
-
-```{r out.width='100%', fig.height=6, eval=require('leaflet')}
-library(leaflet)
-leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 17)
-```
-
----
-
-```{r eval=require('DT'), tidy=FALSE}
-DT::datatable(
-  head(iris, 10),
-  fillContainer = FALSE, options = list(pageLength = 8)
-)
-```
+]]
 
 ---
 class: middle
