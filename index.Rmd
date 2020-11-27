@@ -457,7 +457,7 @@ class: inverse, center, middle
 ---
 
 # YAML - Intermedio
-.font105[.line-space1-5[
+.font105[.line-space2-0[
 En el encabezado YAML también se pueden configurar la visualización del documento de acuerdo al output solicitado.
 
 Se puede modificar el tema especificando `theme` dentro de `html_document` a cualquiera de los siguientes valores: `default`, `cerulean`, `journal`, `flatly`, `darkly`, `readable`, `spacelab`, `united`, `cosmo`, `lumen`, `paper`, `sandstone`, `simplex`, `yeti`.
@@ -466,10 +466,38 @@ Así mismo, se puede modificar `highlight` dentro de `html_document` a cualquier
 ]]
 
 ---
+.font105[.line-space1-5[Ejemplo de modificación YAML en `theme` y `highlight`]]
 
-```{r echo = FALSE, out.width = '150%'}
-knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje.html")
+.panelset[
+.panel[.panel-name[YAML]
+
+```yaml
+---
+title: "Reporte para aprendizaje"
+subtitle: "Capacitación"
+author: 
+  - name: Brian N. Peña-Calero
+    email: brianmsm@gmail.com
+    affiliation: Laboratorio de Innovación en Salud
+date: "27/11/2020"
+output: 
+  html_document: 
+    highlight: kate
+    theme: readable
+---
 ```
+]
+
+.panel[.panel-name[R Markdown]
+.center[
+```{r echo = FALSE, out.width = '100%'}
+knitr::include_url("https://brianmsm.github.io/rmakdown-basico/Reporte/Reporte_aprendizaje_theme.html")
+```
+]
+]
+]
+
+
 
 
 ---

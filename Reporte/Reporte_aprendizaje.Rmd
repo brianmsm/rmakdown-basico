@@ -8,8 +8,8 @@ author:
 date: "27/11/2020"
 output: 
   html_document: 
-    highlight: new
-    theme: flatly
+    highlight: kate
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
