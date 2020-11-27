@@ -428,6 +428,41 @@ knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rma
 ---
 # Cuerpo: Insertar PDF
 
+.font105[Para insertar **imágenes**, existen 2 formas de hacerlo:]
+
+.panelset[
+.panel[.panel-name[Código R]
+#### 1. Código CSS
+
+```
+![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
+```
+
+#### 1. Código HTML
+
+```
+<img src="https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png" width="300px"/>
+```
+
+#### 1. Código R
+
+```{r, echo=FALSE, comment=""}
+cat(c("```{r, echo=FALSE, , out.width = '30%'}",
+      "knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png', 
+      dpi = 600) ",
+      "```"), 
+    sep='\n')
+```
+]
+
+.panel[.panel-name[Imagen]
+.center[
+```{r out.height = "460px", out.width='800px', echo=FALSE}
+knitr::include_graphics("http://www.de.ufpb.br/~ulisses/disciplinas/normality_tests_comparison.pdf")
+```
+]
+]
+]
 
 ---
 
