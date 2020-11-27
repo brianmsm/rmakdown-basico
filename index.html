@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Rmarkdown Nivel Básico</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Brian Norman Peña Calero" />
+    <meta name="date" content="2020-11-27" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x48468b490844216a68efbdb1ec28116","expires":1}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copiar","success":"Copiado","error":"Presiona Ctrl+C para copiar"})</script>
+    <script src="libs/xaringanExtra_fit-screen/fit-screen.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable/js/pagedtable.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/Proj4Leaflet/proj4-compressed.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Rmarkdown Nivel Básico
+### Brian Norman Peña Calero
+### Laboratorio de Innovación en Salud
+### 2020-11-27
+
+---
+
+class: inverse, center, middle
+
+# Temario
+
+
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 100px;
+height: 100px;
+z-index: 0;
+background-image: url(img/logo.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('a')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = 'https://www.linktr.ee/innov_lab'
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+```r
+library(tidyverse)
+```
+
+
+---
+# Temario
+
+.pull-left[
+1. Funcionalidades
+
+1. Componentes de un archivo Rmd
+
+  1. Encabezado YAML - Básico
+  1. Cuerpo
+  
+    - Formato: *cursiva*, **negrita**, ***cursiva-negrita***
+    - Insertar imágenes, [hipervínculos](https://es.wikipedia.org/wiki/Hiperenlace), `código`
+    - Configurar un `chunk`
+  
+1.  Personalización
+
+  1. YAML - Intermedio (theme, highlight, css)
+  1. Formato de tablas
+]
+
+.pull-right[
+&lt;img src="img/RMarkdownOutputFormats.png" width="90%" /&gt;
+]
+
+---
+class: inverse, center, middle
+
+# Funcionalidades
+
+---
+# ¿Que puedo hacer con Rmarkdown?
+
+.font105[.line-space2-0[
+[R Markdown](https://es.r4ds.hadley.nz/r-markdown.html) es la implementación de [Markdown](https://es.wikipedia.org/wiki/Markdown) en R, el cual es un lenguaje de marcado ligero. Es decir, permite configurar formatos de texto en forma básica siendo fácil de editar y fácil de leer.
+
+**R Markdown** (.Rmd) puede exportar a [múltiples formatos](https://rmarkdown.rstudio.com/formats.html) y estos se incrementan aún más con el apoyo de otros paquetes: [html](https://bookdown.org/yihui/rmarkdown/html-document.html), [pdf](https://bookdown.org/yihui/rmarkdown/pdf-document.html), [word](https://bookdown.org/yihui/rmarkdown/word-document.html), [notebook](https://bookdown.org/yihui/rmarkdown/notebook.html), [presentaciones](https://bookdown.org/yihui/rmarkdown/presentations.html) ([xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html), [ioslides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html), [revealjs](https://bookdown.org/yihui/rmarkdown/revealjs.html)), [dashboard](https://rmarkdown.rstudio.com/flexdashboard/), [libros](https://bookdown.org/), [páginas web](https://bookdown.org/yihui/blogdown/), [shiny apps](https://rmarkdown.rstudio.com/authoring_shiny.html%2F), [pósteres](https://github.com/brentthorne/posterdown), etc.
+]]
+
+.center[
+&lt;img src="img/rmarkdownflow.png" width="60%" /&gt;
+]
+
+---
+# Review breve
+.font105[En el siguiente video se puede apreciar de forma corta todo el poder que te proporciona el uso de Rmarkdown para el proceso de comunicación científica.
+]
+
+.center[
+&lt;iframe src="https://player.vimeo.com/video/178485416?color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href="https://vimeo.com/178485416"&gt;What is R Markdown?&lt;/a&gt; from &lt;a href="https://vimeo.com/rstudioinc"&gt;RStudio, Inc.&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+]
+---
+# Primeros pasos
+
+Necesitas tener instalado el paquete `rmarkdown` y posteriormente generar un archivo de esa extensión.
+
+.pull-left[
+
+#### Instalación del paquete
+
+```r
+install.packages("rmarkdown")
+```
+
+#### Generar un archivo `Rmarkdown`
+
+1. Ir a File -&gt; New File -&gt; R Markdown
+2. En la sección de `Document` indicar el título y nombre de autor (esto se puede modificar luego).
+3. Guardar el archivo `.Rmd`
+4. Con la opción de `Knit` se puede generar un archivo **hmtl**.
+]
+
+.center[.pull-right[
+&lt;img src="img/new_rmarkdown_1.png" width="100%" /&gt;
+&lt;img src="img/new_rmarkdown_2.png" width="70%" /&gt;
+]]
+
+---
+
+class: inverse, center, middle
+
+# Componentes de un archivo Rmd
+
+---
+
+# Encabezado YAML - Básico
+
+.font105[.line-space1-5[
+El encabezado de un `Rmd` contiene básicamente metadatos del archivo, formato general del output y, en ocasiones, estilos personalizados (css), entre otros aspectos.
+]]
+
+.pull-left[
+
+.font105[.line-space1-2[Este es el formato `YAML` básico con el que se inicia al generar un archivo `Rmd`.]]
+```yaml
+---
+title: "Reporte para aprendizaje"
+author: "Brian Peña-Calero"
+date: "27/11/2020"
+output: html_document
+---
+```
+
+.font105[.line-space1-2[El formato `YAML` puede contener más información y personalización. Esto dependerá de la configuración del output.]]
+]
+
+.pull-right[
+.font105[.line-space1-2[Algunos metadatos adicionales, que podrían usarse:]]
+
+```yaml
+---
+title: "Reporte para aprendizaje"
+subtitle: "Capacitación"
+author: 
+  - name: Brian N. Peña-Calero
+    email: brianmsm@gmail.com
+    affiliation: Laboratorio de Innovación en Salud
+date: "27/11/2020"
+output: html_document
+---
+```
+]
+
+
+---
+
+# Cuerpo: Formato de texto
+.font105[El formato de texto en Rmarkdown es bastante simple. Para títulos y subtítulos tenemos el uso de la **almohadilla/numeral/michi/#**:]
+
+.pull-left[.middle[
+.font120[.line-space2-2[
+```
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+###### Título 6
+```
+]]]]
+
+.pull-right[.middle[
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+###### Título 6
+]]
+ 
+ 
+---
+
+# Cuerpo: Formato de texto
+.font105[Formato  *cursiva*, **negrita**, ***cursiva-negrita***, `código` e [hipervínculo](https://es.wikipedia.org/wiki/Hiperenlace)]
+
+.pull-left[
+.font120[.line-space2-0[
+```
+**Este texto está en cursiva*
+
+***Ahora, este texto está en negrita**
+
+****Este último contiene ambos: negrita-cursiva***
+
+*`Este texto será mostrado como código`
+
+*Esta data de ` r nrow(mtcars)` casos... 
+
+*[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+```
+]]]
+
+.pull-right[.line-space2-2[
+*Este texto está en cursiva*
+
+**Ahora, este texto está en negrita**
+
+***Este último contiene ambos: negrita-cursiva***
+
+`Este texto será mostrado como código`
+
+Esta data de 32 casos... 
+
+[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+]]
+
+---
+# Cuerpo: Insertar listas y viñetas
+
+También es posible adicionar listas enumeradas y/o viñetas dentro de la redacción.
+
+
+.pull-left[
+.font120[.line-space2-0[
+```
+* 1. Primera numeración
+
+* 1. Segunda numeración
+
+*     - Primera viñeta
+
+*         + Una subviñeta viñeta
+
+*     - Segunda viñeta
+
+* 1. Tercera numeración
+```
+]]]
+
+.pull-right[.line-space2-2[
+1. Primera numeración
+
+1. Segunda numeración
+
+   - Primera viñeta
+   
+      + Una subviñeta viñeta
+
+   - Segunda viñeta
+
+1. Tercera numeración
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-2[
+Se puede utilizar código R o de otro [lenguaje soportado](https://bookdown.org/yihui/rmarkdown/language-engines.html) en una línea `r nrow(mtcars)` así como en un bloque (chunk) cuando se trata de análisis de varias líneas de código. 
+]]
+
+**Código:**
+
+
+````
+```{r}
+as_tibble(mtcars) %&gt;% 
+  print(n = 3)
+```
+````
+
+**Salida: **
+
+
+```
+## # A tibble: 32 x 11
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## # … with 29 more rows
+```
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-2[
+Los chunks pueden ser insertados mediante la combinación de teclas `Ctrl + alt + I` o mediante el botón de insertar.
+
+Los chunks pueden contener nombres para ser referenciados posteriormente y/o configurar su ejecución/output dependiendo del contenido del código.
+]]
+
+Por ejemplo:
+
+.pull-left[
+
+````
+```{r ejemplo, eval=FALSE}
+as_tibble(mtcars) %&gt;% 
+  print(n = 3)
+```
+````
+]
+
+.pull-right[
+
+```r
+as_tibble(mtcars) %&gt;% 
+  print(n = 3)
+```
+]
+
+.font105[.line-space1-2[
+Este chunk tiene un nombre llamado `ejemplo` y una configuración `eval=FALSE` que indica que el código no se evaluará (ejecutará), y solamente se mostrará. Puede ser útil para demostraciones y/o tutoriales.
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-5[
+A continuación se muestran algunas configuraciones consideradas comunes para los chunks. Estas pueden combinarse entre sí (separadas por coma) en tanto tengan sentido. Existen alrededor de [60 configuraciones](https://yihui.org/knitr/options/) y dependen del contenido del código:
+
+- `eval = FALSE`: No ejecuta código
+
+- `include = FALSE`: Ejecuta código pero no muestra el resultado.
+
+- `echo = FALSE`: Ejecuta código y muestra el output. Pero el código se mantiene oculto.
+
+- `message = FALSE`: Evita que se muestren mensajes de ejecución.
+
+- `warning = FALSE`: No muestra mensajes warnings (advertencia)
+
+- `error = TRUE`: La compilación del documento continúa apesar de errores.
+
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-5[
+Uno de las configuraciones chunk que más comúnmente se utiliza es el de `echo = FALSE` cuando se intenta no abrumar con el código, se insertan archivos externos (imágenes, videos, etc.) o se formatean los output (salidas personalizadas de tablas, apps, etc.).
+
+Por ejemplo. A continuación se mostrará una tabla formateada directamente.
+]]
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["disp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["drat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["qsec"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["vs"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["am"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["gear"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["carb"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"160.0","4":"110","5":"3.90","6":"2.620","7":"16.46","8":"0","9":"1","10":"4","11":"4"},{"1":"21.0","2":"6","3":"160.0","4":"110","5":"3.90","6":"2.875","7":"17.02","8":"0","9":"1","10":"4","11":"4"},{"1":"22.8","2":"4","3":"108.0","4":"93","5":"3.85","6":"2.320","7":"18.61","8":"1","9":"1","10":"4","11":"1"},{"1":"21.4","2":"6","3":"258.0","4":"110","5":"3.08","6":"3.215","7":"19.44","8":"1","9":"0","10":"3","11":"1"},{"1":"18.7","2":"8","3":"360.0","4":"175","5":"3.15","6":"3.440","7":"17.02","8":"0","9":"0","10":"3","11":"2"},{"1":"18.1","2":"6","3":"225.0","4":"105","5":"2.76","6":"3.460","7":"20.22","8":"1","9":"0","10":"3","11":"1"},{"1":"14.3","2":"8","3":"360.0","4":"245","5":"3.21","6":"3.570","7":"15.84","8":"0","9":"0","10":"3","11":"4"},{"1":"24.4","2":"4","3":"146.7","4":"62","5":"3.69","6":"3.190","7":"20.00","8":"1","9":"0","10":"4","11":"2"},{"1":"22.8","2":"4","3":"140.8","4":"95","5":"3.92","6":"3.150","7":"22.90","8":"1","9":"0","10":"4","11":"2"},{"1":"19.2","2":"6","3":"167.6","4":"123","5":"3.92","6":"3.440","7":"18.30","8":"1","9":"0","10":"4","11":"4"},{"1":"17.8","2":"6","3":"167.6","4":"123","5":"3.92","6":"3.440","7":"18.90","8":"1","9":"0","10":"4","11":"4"},{"1":"16.4","2":"8","3":"275.8","4":"180","5":"3.07","6":"4.070","7":"17.40","8":"0","9":"0","10":"3","11":"3"},{"1":"17.3","2":"8","3":"275.8","4":"180","5":"3.07","6":"3.730","7":"17.60","8":"0","9":"0","10":"3","11":"3"},{"1":"15.2","2":"8","3":"275.8","4":"180","5":"3.07","6":"3.780","7":"18.00","8":"0","9":"0","10":"3","11":"3"},{"1":"10.4","2":"8","3":"472.0","4":"205","5":"2.93","6":"5.250","7":"17.98","8":"0","9":"0","10":"3","11":"4"},{"1":"10.4","2":"8","3":"460.0","4":"215","5":"3.00","6":"5.424","7":"17.82","8":"0","9":"0","10":"3","11":"4"},{"1":"14.7","2":"8","3":"440.0","4":"230","5":"3.23","6":"5.345","7":"17.42","8":"0","9":"0","10":"3","11":"4"},{"1":"32.4","2":"4","3":"78.7","4":"66","5":"4.08","6":"2.200","7":"19.47","8":"1","9":"1","10":"4","11":"1"},{"1":"30.4","2":"4","3":"75.7","4":"52","5":"4.93","6":"1.615","7":"18.52","8":"1","9":"1","10":"4","11":"2"},{"1":"33.9","2":"4","3":"71.1","4":"65","5":"4.22","6":"1.835","7":"19.90","8":"1","9":"1","10":"4","11":"1"},{"1":"21.5","2":"4","3":"120.1","4":"97","5":"3.70","6":"2.465","7":"20.01","8":"1","9":"0","10":"3","11":"1"},{"1":"15.5","2":"8","3":"318.0","4":"150","5":"2.76","6":"3.520","7":"16.87","8":"0","9":"0","10":"3","11":"2"},{"1":"15.2","2":"8","3":"304.0","4":"150","5":"3.15","6":"3.435","7":"17.30","8":"0","9":"0","10":"3","11":"2"},{"1":"13.3","2":"8","3":"350.0","4":"245","5":"3.73","6":"3.840","7":"15.41","8":"0","9":"0","10":"3","11":"4"},{"1":"19.2","2":"8","3":"400.0","4":"175","5":"3.08","6":"3.845","7":"17.05","8":"0","9":"0","10":"3","11":"2"},{"1":"27.3","2":"4","3":"79.0","4":"66","5":"4.08","6":"1.935","7":"18.90","8":"1","9":"1","10":"4","11":"1"},{"1":"26.0","2":"4","3":"120.3","4":"91","5":"4.43","6":"2.140","7":"16.70","8":"0","9":"1","10":"5","11":"2"},{"1":"30.4","2":"4","3":"95.1","4":"113","5":"3.77","6":"1.513","7":"16.90","8":"1","9":"1","10":"5","11":"2"},{"1":"15.8","2":"8","3":"351.0","4":"264","5":"4.22","6":"3.170","7":"14.50","8":"0","9":"1","10":"5","11":"4"},{"1":"19.7","2":"6","3":"145.0","4":"175","5":"3.62","6":"2.770","7":"15.50","8":"0","9":"1","10":"5","11":"6"},{"1":"15.0","2":"8","3":"301.0","4":"335","5":"3.54","6":"3.570","7":"14.60","8":"0","9":"1","10":"5","11":"8"},{"1":"21.4","2":"4","3":"121.0","4":"109","5":"4.11","6":"2.780","7":"18.60","8":"1","9":"1","10":"4","11":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[7],"max":[7]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+---
+# Cuerpo: Insertar imágenes
+.font105[Para insertar **imágenes**, existen 2 formas de hacerlo:]
+
+.panelset[
+.panel[.panel-name[Código R]
+#### 1. Código CSS
+
+```
+![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
+```
+
+#### 1. Código HTML
+
+```
+&lt;img src="https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png" width="300px"/&gt;
+```
+
+#### 1. Código R
+
+
+````
+```{r, echo=FALSE, , out.width = '30%'}
+knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png', 
+      dpi = 600) 
+```
+````
+]
+
+.panel[.panel-name[Imagen]
+.center[
+&lt;img src="https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png" width="30%" /&gt;
+]
+]
+]
+
+---
+# Cuerpo: Insertar PDF
+
+
+---
+
+
+---
+
+# HTML Widgets
+
+I have not thoroughly tested HTML widgets against **xaringan**. Some may work well, and some may not. It is a little tricky.
+
+Similarly, the Shiny mode (`runtime: shiny`) does not work. I might get these issues fixed in the future, but these are not of high priority to me. I never turn my presentation into a Shiny app. When I need to demonstrate more complicated examples, I just launch them separately. It is convenient to share slides with other people when they are plain HTML/JS applications.
+
+See the next page for two HTML widgets.
+
+---
+
+
+```r
+library(leaflet)
+leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
+```
+
+<div id="htmlwidget-376504012523b5127f24" style="width:100%;height:432px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-376504012523b5127f24">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
+
+---
+
+
+```r
+DT::datatable(
+  head(iris, 10),
+  fillContainer = FALSE, options = list(pageLength = 8)
+)
+```
+
+<div id="htmlwidget-88cae50a2bb5359df024" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-88cae50a2bb5359df024">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+class: middle
+
+&lt;br&gt;
+&lt;center&gt;
+&lt;h2&gt;
+&lt;span style="color:black"&gt;Brian Norman Peña Calero&lt;/span&gt;
+&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3&gt;
+<span>&lt;i class="fas  fa-envelope fa-xs faa-float animated "&gt;&lt;/i&gt;&lt;a href="mailto:brianmsm@gmail.com"&gt;&lt;span style="color:#562457"&gt;&amp;nbsp;&amp;nbsp;brianmsm@gmail.com&lt;/span&gt;&lt;/a&gt;</span>
+&lt;/h3&gt;
+&lt;h3&gt;
+<span>&lt;i class="fab  fa-github fa-xs faa-float animated "&gt;&lt;/i&gt;&lt;a href="https://github.com/brianmsm/"&gt;&lt;span style="color:#562457"&gt;&amp;nbsp;&amp;nbsp; @brianmsm&lt;/span&gt;&lt;/a&gt;</span>
+&lt;/h3&gt;
+&lt;h3&gt;
+<span>&lt;i class="fab  fa-twitter fa-xs faa-float animated "&gt;&lt;/i&gt;&lt;a href="https://twitter.com/brianmsm"&gt;&lt;span style="color:#562457"&gt;&amp;nbsp;&amp;nbsp; @brianmsm&lt;/span&gt;&lt;/a&gt;</span>
+&lt;/h3&gt;
+&lt;/center&gt;
+
+&lt;br&gt;
+
+.line-space1-5[
+Estas diapositivas fueron creadas mediante el paquete [xaringan](https://github.com/yihui/xaringan) y [xaringanthemer](https://github.com/gadenbuie/xaringanthemer/). Adicionalmente, la presentación de [Vilma Romero](https://github.com/VilmaRomero), sobre [Reportes Reproducibles](https://github.com/VilmaRomero/R-Ladies-Lima-rmarkdown), fue tomado como guía-base para esta elaboración.
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,485 @@
+---
+title: "Rmarkdown Nivel Básico"
+author: "Brian Norman Peña Calero"
+institute: "Laboratorio de Innovación en Salud"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: [xaringan-themer.css, custom.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+encoding: "UTF-8"
+---
+class: inverse, center, middle
+
+# Temario
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, warning=FALSE, include=FALSE}
+library(xaringanthemer)
+style_mono_light(
+  base_color       = "#23395b",
+  padding          = "16px 50px 12px 50px",
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r xaringanExtra, echo=FALSE}
+#devtools::install_github("gadenbuie/xaringanExtra")
+xaringanExtra::use_xaringan_extra(c("tile_view", "tachyons", "panelset"))
+
+xaringanExtra::use_editable(expires = 1)
+
+xaringanExtra::use_logo(
+  image_url = "img/logo.png",
+  link_url = "https://www.linktr.ee/innov_lab",
+  width = 100,
+  height = 100
+)
+
+xaringanExtra::use_clipboard(
+  button_text = "Copiar",
+  success_text = "Copiado",
+  error_text = "Presiona Ctrl+C para copiar"
+)
+
+xaringanExtra::use_fit_screen()
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = FALSE  #<<
+)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+---
+# Temario
+
+.pull-left[
+1. Funcionalidades
+
+1. Componentes de un archivo Rmd
+
+  1. Encabezado YAML - Básico
+  1. Cuerpo
+  
+    - Formato: *cursiva*, **negrita**, ***cursiva-negrita***
+    - Insertar imágenes, [hipervínculos](https://es.wikipedia.org/wiki/Hiperenlace), `código`
+    - Configurar un `chunk`
+  
+1.  Personalización
+
+  1. YAML - Intermedio (theme, highlight, css)
+  1. Formato de tablas
+]
+
+.pull-right[
+```{r, out.width="90%", echo = FALSE}
+knitr::include_graphics("img/RMarkdownOutputFormats.png", dpi = 500)
+```
+]
+
+---
+class: inverse, center, middle
+
+# Funcionalidades
+
+---
+# ¿Que puedo hacer con Rmarkdown?
+
+.font105[.line-space2-0[
+[R Markdown](https://es.r4ds.hadley.nz/r-markdown.html) es la implementación de [Markdown](https://es.wikipedia.org/wiki/Markdown) en R, el cual es un lenguaje de marcado ligero. Es decir, permite configurar formatos de texto en forma básica siendo fácil de editar y fácil de leer.
+
+**R Markdown** (.Rmd) puede exportar a [múltiples formatos](https://rmarkdown.rstudio.com/formats.html) y estos se incrementan aún más con el apoyo de otros paquetes: [html](https://bookdown.org/yihui/rmarkdown/html-document.html), [pdf](https://bookdown.org/yihui/rmarkdown/pdf-document.html), [word](https://bookdown.org/yihui/rmarkdown/word-document.html), [notebook](https://bookdown.org/yihui/rmarkdown/notebook.html), [presentaciones](https://bookdown.org/yihui/rmarkdown/presentations.html) ([xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html), [ioslides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html), [revealjs](https://bookdown.org/yihui/rmarkdown/revealjs.html)), [dashboard](https://rmarkdown.rstudio.com/flexdashboard/), [libros](https://bookdown.org/), [páginas web](https://bookdown.org/yihui/blogdown/), [shiny apps](https://rmarkdown.rstudio.com/authoring_shiny.html%2F), [pósteres](https://github.com/brentthorne/posterdown), etc.
+]]
+
+.center[
+```{r, out.width="60%", echo = FALSE}
+knitr::include_graphics("img/rmarkdownflow.png", dpi = 600)
+```
+]
+
+---
+# Review breve
+.font105[En el siguiente video se puede apreciar de forma corta todo el poder que te proporciona el uso de Rmarkdown para el proceso de comunicación científica.
+]
+
+.center[
+<iframe src="https://player.vimeo.com/video/178485416?color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/178485416">What is R Markdown?</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+]
+---
+# Primeros pasos
+
+Necesitas tener instalado el paquete `rmarkdown` y posteriormente generar un archivo de esa extensión.
+
+.pull-left[
+
+#### Instalación del paquete
+```{r, eval = FALSE}
+install.packages("rmarkdown")
+```
+
+#### Generar un archivo `Rmarkdown`
+
+1. Ir a File -> New File -> R Markdown
+2. En la sección de `Document` indicar el título y nombre de autor (esto se puede modificar luego).
+3. Guardar el archivo `.Rmd`
+4. Con la opción de `Knit` se puede generar un archivo **hmtl**.
+]
+
+.center[.pull-right[
+```{r, out.width="100%", echo = FALSE}
+knitr::include_graphics("img/new_rmarkdown_1.png", dpi = 600)
+```
+```{r, out.width="70%", echo = FALSE}
+knitr::include_graphics("img/new_rmarkdown_2.png", dpi = 600)
+```
+]]
+
+---
+
+class: inverse, center, middle
+
+# Componentes de un archivo Rmd
+
+---
+
+# Encabezado YAML - Básico
+
+.font105[.line-space1-5[
+El encabezado de un `Rmd` contiene básicamente metadatos del archivo, formato general del output y, en ocasiones, estilos personalizados (css), entre otros aspectos.
+]]
+
+.pull-left[
+
+.font105[.line-space1-2[Este es el formato `YAML` básico con el que se inicia al generar un archivo `Rmd`.]]
+```yaml
+---
+title: "Reporte para aprendizaje"
+author: "Brian Peña-Calero"
+date: "27/11/2020"
+output: html_document
+---
+```
+
+.font105[.line-space1-2[El formato `YAML` puede contener más información y personalización. Esto dependerá de la configuración del output.]]
+]
+
+.pull-right[
+.font105[.line-space1-2[Algunos metadatos adicionales, que podrían usarse:]]
+
+```yaml
+---
+title: "Reporte para aprendizaje"
+subtitle: "Capacitación"
+author: 
+  - name: Brian N. Peña-Calero
+    email: brianmsm@gmail.com
+    affiliation: Laboratorio de Innovación en Salud
+date: "27/11/2020"
+output: html_document
+---
+```
+]
+
+
+---
+
+# Cuerpo: Formato de texto
+.font105[El formato de texto en Rmarkdown es bastante simple. Para títulos y subtítulos tenemos el uso de la **almohadilla/numeral/michi/#**:]
+
+.pull-left[.middle[
+.font120[.line-space2-2[
+```
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+###### Título 6
+```
+]]]]
+
+.pull-right[.middle[
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+###### Título 6
+]]
+ 
+ 
+---
+
+# Cuerpo: Formato de texto
+.font105[Formato  *cursiva*, **negrita**, ***cursiva-negrita***, `código` e [hipervínculo](https://es.wikipedia.org/wiki/Hiperenlace)]
+
+.pull-left[
+.font120[.line-space2-0[
+```
+**Este texto está en cursiva*
+
+***Ahora, este texto está en negrita**
+
+****Este último contiene ambos: negrita-cursiva***
+
+*`Este texto será mostrado como código`
+
+*Esta data de ` r nrow(mtcars)` casos... 
+
+*[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+```
+]]]
+
+.pull-right[.line-space2-2[
+*Este texto está en cursiva*
+
+**Ahora, este texto está en negrita**
+
+***Este último contiene ambos: negrita-cursiva***
+
+`Este texto será mostrado como código`
+
+Esta data de `r nrow(mtcars)` casos... 
+
+[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+]]
+
+---
+# Cuerpo: Insertar listas y viñetas
+
+También es posible adicionar listas enumeradas y/o viñetas dentro de la redacción.
+
+
+.pull-left[
+.font120[.line-space2-0[
+```
+* 1. Primera numeración
+
+* 1. Segunda numeración
+
+*     - Primera viñeta
+
+*         + Una subviñeta viñeta
+
+*     - Segunda viñeta
+
+* 1. Tercera numeración
+```
+]]]
+
+.pull-right[.line-space2-2[
+1. Primera numeración
+
+1. Segunda numeración
+
+   - Primera viñeta
+   
+      + Una subviñeta viñeta
+
+   - Segunda viñeta
+
+1. Tercera numeración
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-2[
+Se puede utilizar código R o de otro [lenguaje soportado](https://bookdown.org/yihui/rmarkdown/language-engines.html) en una línea `r knitr::inline_expr('nrow(mtcars)')` así como en un bloque (chunk) cuando se trata de análisis de varias líneas de código. 
+]]
+
+**Código:**
+
+```{r, echo=FALSE, comment=""}
+cat(c("```{r}",
+      "as_tibble(mtcars) %>% 
+  print(n = 3)",
+      "```"), 
+    sep='\n')
+```
+
+**Salida: **
+
+```{r echo=FALSE, tibble.print_max = 5}
+as_tibble(mtcars) %>% 
+  print(n = 3)
+```
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-2[
+Los chunks pueden ser insertados mediante la combinación de teclas `Ctrl + alt + I` o mediante el botón de insertar.
+
+Los chunks pueden contener nombres para ser referenciados posteriormente y/o configurar su ejecución/output dependiendo del contenido del código.
+]]
+
+Por ejemplo:
+
+.pull-left[
+```{r, echo=FALSE, comment=""}
+cat(c("```{r ejemplo, eval=FALSE}",
+      "as_tibble(mtcars) %>% 
+  print(n = 3)",
+      "```"), 
+    sep='\n')
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+as_tibble(mtcars) %>% 
+  print(n = 3)
+```
+]
+
+.font105[.line-space1-2[
+Este chunk tiene un nombre llamado `ejemplo` y una configuración `eval=FALSE` que indica que el código no se evaluará (ejecutará), y solamente se mostrará. Puede ser útil para demostraciones y/o tutoriales.
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-5[
+A continuación se muestran algunas configuraciones consideradas comunes para los chunks. Estas pueden combinarse entre sí (separadas por coma) en tanto tengan sentido. Existen alrededor de [60 configuraciones](https://yihui.org/knitr/options/) y dependen del contenido del código:
+
+- `eval = FALSE`: No ejecuta código
+
+- `include = FALSE`: Ejecuta código pero no muestra el resultado.
+
+- `echo = FALSE`: Ejecuta código y muestra el output. Pero el código se mantiene oculto.
+
+- `message = FALSE`: Evita que se muestren mensajes de ejecución.
+
+- `warning = FALSE`: No muestra mensajes warnings (advertencia)
+
+- `error = TRUE`: La compilación del documento continúa apesar de errores.
+
+]]
+
+---
+# Cuerpo: Insertar código R
+
+.font105[.line-space1-5[
+Uno de las configuraciones chunk que más comúnmente se utiliza es el de `echo = FALSE` cuando se intenta no abrumar con el código, se insertan archivos externos (imágenes, videos, etc.) o se formatean los output (salidas personalizadas de tablas, apps, etc.).
+
+Por ejemplo. A continuación se mostrará una tabla formateada directamente.
+]]
+
+```{r echo = FALSE, rows.print = 7}
+as_tibble(mtcars) %>% 
+  rmarkdown::paged_table() 
+```
+
+---
+# Cuerpo: Insertar imágenes
+.font105[Para insertar **imágenes**, existen 2 formas de hacerlo:]
+
+.panelset[
+.panel[.panel-name[Código R]
+#### 1. Código CSS
+
+```
+![](https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png)
+```
+
+#### 1. Código HTML
+
+```
+<img src="https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png" width="300px"/>
+```
+
+#### 1. Código R
+
+```{r, echo=FALSE, comment=""}
+cat(c("```{r, echo=FALSE, , out.width = '30%'}",
+      "knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png', 
+      dpi = 600) ",
+      "```"), 
+    sep='\n')
+```
+]
+
+.panel[.panel-name[Imagen]
+.center[
+```{r, echo=FALSE, out.width = '30%'}
+knitr::include_graphics('https://rubenfcasal.github.io/bookdown_intro/images/rmarkdown.png', dpi = 600) 
+```
+]
+]
+]
+
+---
+# Cuerpo: Insertar PDF
+
+
+---
+
+
+---
+
+# HTML Widgets
+
+I have not thoroughly tested HTML widgets against **xaringan**. Some may work well, and some may not. It is a little tricky.
+
+Similarly, the Shiny mode (`runtime: shiny`) does not work. I might get these issues fixed in the future, but these are not of high priority to me. I never turn my presentation into a Shiny app. When I need to demonstrate more complicated examples, I just launch them separately. It is convenient to share slides with other people when they are plain HTML/JS applications.
+
+See the next page for two HTML widgets.
+
+---
+
+```{r out.width='100%', fig.height=6, eval=require('leaflet')}
+library(leaflet)
+leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 17)
+```
+
+---
+
+```{r eval=require('DT'), tidy=FALSE}
+DT::datatable(
+  head(iris, 10),
+  fillContainer = FALSE, options = list(pageLength = 8)
+)
+```
+
+---
+class: middle
+
+<br>
+<center>
+<h2>
+<span style="color:black">Brian Norman Peña Calero</span>
+</h2>
+<br>
+<h3>
+`r anicon::faa('envelope', size = 'xs', animate='float', rtext='<a href="mailto:brianmsm@gmail.com"><span style="color:#562457">&nbsp;&nbsp;brianmsm@gmail.com</span></a>')`
+</h3>
+<h3>
+`r anicon::faa('github', size = 'xs', animate='float', rtext='<a href="https://github.com/brianmsm/"><span style="color:#562457">&nbsp;&nbsp; @brianmsm</span></a>')`
+</h3>
+<h3>
+`r anicon::faa('twitter', size = 'xs', animate='float', rtext='<a href="https://twitter.com/brianmsm"><span style="color:#562457">&nbsp;&nbsp; @brianmsm</span></a>')`
+</h3>
+</center>
+
+<br>
+
+.line-space1-5[
+Estas diapositivas fueron creadas mediante el paquete [xaringan](https://github.com/yihui/xaringan) y [xaringanthemer](https://github.com/gadenbuie/xaringanthemer/). Adicionalmente, la presentación de [Vilma Romero](https://github.com/VilmaRomero), sobre [Reportes Reproducibles](https://github.com/VilmaRomero/R-Ladies-Lima-rmarkdown), fue tomado como guía-base para esta elaboración.
+]
